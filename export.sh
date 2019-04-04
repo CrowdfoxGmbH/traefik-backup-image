@@ -7,6 +7,6 @@ if [ -z "$ETCDCTL_API" ];then
   export ETCDCTL_API=3
 fi
 
-echo "Endpoints: $endpoints; Path: $path; ETCDCTL_API_VERSION: $ETCDCTL_API"
+echo >&2 "Endpoints: $endpoints; Path: $path; ETCDCTL_API_VERSION: $ETCDCTL_API"
 
 etcdctl --endpoints="$endpoints" get "$path" --prefix --print-value-only --hex  | sed 's/\\x//g' | xxd -r -p | gzip -dc | jq .
